@@ -1,0 +1,22 @@
+<!-- views/quotes.html -->
+<section id="quotes" class="view">
+    <h2>Quote of the Day</h2>
+    <blockquote id="quote-text">“Loading quote...”</blockquote>
+    <cite id="quote-author"></cite>
+  </section>
+  
+  <script>
+    const quotes = [
+      { text: "This too shall pass.", author: "Unknown" },
+      { text: "Be yourself; everyone else is already taken.", author: "Oscar Wilde" },
+      { text: "Small steps every day.", author: "Anonymous" },
+      { text: "Reflect, grow, repeat.", author: "You" }
+    ];
+  
+    const today = new Date().getDate();
+    const quote = quotes[today % quotes.length];
+  
+    document.getElementById('quote-text').textContent = `"${quote.text}"`;
+    document.getElementById('quote-author').textContent = `– ${quote.author}`;
+  </script>
+  
