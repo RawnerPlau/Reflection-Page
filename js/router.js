@@ -19,11 +19,17 @@ const views = {
   }
   
   // Listen to clicks on the header nav
-  document.addEventListener('click', e => {
+  document.addEventListener('click', e => { 
     if (e.target.matches('a[data-view]')) {
       e.preventDefault();
       const viewName = e.target.getAttribute('data-view');
-      loadView(viewName);
+      if (viewName != "logout"){
+        loadView(viewName);
+      } else {
+        localStorage.setItem('isLoggedIn', 'false')
+        window.location.href = '/../views/login.html';
+      }
+      
     }
   });
   
