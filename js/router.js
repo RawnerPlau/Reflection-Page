@@ -15,7 +15,6 @@ const views = {
             renderQuote(); // Load the quote when the quote view is active
           }
       });
-
   }
   
   // Listen to clicks on the header nav

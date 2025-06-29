@@ -31,6 +31,25 @@ body {
   color: #1abc9c;
 }
 
+.views-slider {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-btn {
+  position:absolute;
+}
+
+.nav-btn.next {
+  right: 1rem;
+}
+
+.nav-btn.prev {
+  left: 1rem;
+}
 #quotes {
   display: flex;
   flex-direction: column;   
