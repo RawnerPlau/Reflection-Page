@@ -1,34 +1,48 @@
-/* style.css */
 body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #fdfdfd;
-  }
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fdfdfd;
+}
   
-  .site-header {
-    background-color: #34495e;
-    color: #ffffff;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  }
+.site-header {
+  background-color: #34495e;
+  color: #ffffff;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
   
-  .site-header h1 {
-    margin: 0;
-    font-size: 1.8rem;
-  }
+.site-header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
   
-  .nav a {
-    color: #ecf0f1;
-    text-decoration: none;
-    margin-left: 1rem;
-    font-weight: bold;
-    transition: color 0.3s;
-  }
+.nav a {
+  color: #ecf0f1;
+  text-decoration: none;
+  margin-left: 1rem;
+  font-weight: bold;
+  transition: color 0.3s;
+}
   
-  .nav a:hover {
-    color: #1abc9c;
+.nav a:hover {
+  color: #1abc9c;
+}
+
+#quotes {
+  display: flex;
+  flex-direction: column;   
+  justify-content: center;
+  align-items: center;
+  height: 75vh;
+  opacity: 0;
+  animation: fadeIn 1s ease-in forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
   }
-  
+}

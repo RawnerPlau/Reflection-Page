@@ -5,13 +5,14 @@
   <meta charset="UTF-8">
   <title>My Reflection Site</title>
   <link rel="stylesheet" href="css/style.css">
-  <script>
-    if (!localStorage.getItem('isLoggedIn')) {
-      window.location.href = '/views/login.html'
-    }
-  </script>
+  
 </head>
 <body>
+    <script>
+      if (!localStorage.getItem('isLoggedIn')) {
+        window.location.href = '/views/login.html'
+      }
+    </script>
     <div id="header-container"></div>
     <div id="views-container"></div>
 
