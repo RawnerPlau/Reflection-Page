@@ -1,8 +1,8 @@
 <?php
 $host = "localhost";
-$username = "admin";
+$username = "root";
 $password = "";
-$database = "quotes";
+$database = "reflection-site";
 
 $conn = new mysqli($host, $username, $password, $database);
 
