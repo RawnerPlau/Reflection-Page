@@ -1,7 +1,8 @@
 import { renderQuote } from './quotesView.js';
+import { renderQuotes } from './quotes/renderQuotes.js'
 const views = {
     home: 'views/home.html',
-    quotes: 'views/quotes.html',
+    quotes: './views/quotes.html',
     journal: 'views/journal.html'
   };
   
@@ -13,6 +14,8 @@ function loadView(viewName) {
 
       if (viewName === 'home') {
           renderQuote(); // Load the quote when the quote view is active
+        } else if (viewName === 'quotes') {
+          renderQuotes();
         }
     });
 }
@@ -26,7 +29,7 @@ document.addEventListener('click', e => {
       loadView(viewName);
     } else {
       localStorage.setItem('isLoggedIn', 'false')
-      window.location.href = '/../views/login.html';
+      window.location.href = './views/login.html';
     }
       
   }

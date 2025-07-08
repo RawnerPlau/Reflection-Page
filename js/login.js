@@ -6,7 +6,7 @@ document.getElementById('login-form').addEventListener('submit', function (e) {
 
     if (username === "admin" && password === "secret"){
         localStorage.setItem('isLoggedIn', 'true');
-        window.location.href = '/../index.html';
+        window.location.href = '/reflection-page/index.html';
     } else {
         document.getElementById('error-msg').textContent = 'Username or Password is incorrect.'
     }

@@ -50,6 +50,36 @@ body {
 .nav-btn.prev {
   left: 1rem;
 }
+.quotes-view {
+  display: flex;
+  justify-content: right;
+  margin: 0;
+  padding: 0;
+}
+
+#quotes-container {
+  display: block;
+  border-style: solid;
+  left: 0;
+  border-width: 1px;
+  border-radius: 1vh;
+  box-shadow: 5px 10px rgb(0, 0, 0, 0.1);
+  margin: 2rem 0;
+  width: 1000px;
+}
+
+.quotes-table {
+  width: 100%;
+  table-layout: auto;
+}
+
+.quotes-table th,
+.quotes-table td {
+  text-align: left;
+  padding: 8px;              /* Adds space inside cells */
+  white-space: nowrap;       /* Prevents breaking long content into multiple lines */
+  height: auto;              /* Height grows with content */
+}
 
 .quotes-form {
   display: flex;
@@ -57,7 +87,7 @@ body {
   width: 50vh;
   gap: 1rem;
   padding: 2rem;
-  margin: 2rem auto;
+  margin: 2rem;
   border-style: solid;
   border-width: 1px;
   border-radius: 1vh;
