@@ -1,13 +1,18 @@
-// js/quotesView.js
+import { fetchQuotes } from "./quotes/fetchQuotes.js";
 
-export function renderQuote() {
-    const quotes = [
-      { text: "This too shall pass.", author: "Unknown" },
-      { text: "Be yourself; everyone else is already taken.", author: "Oscar Wilde" },
-      { text: "Small steps every day.", author: "Anonymous" },
-      { text: "Reflect, grow, repeat.", author: "You" }
-    ];
-  
+export async function renderQuote() {
+    //const quotes = [
+    //  { text: "This too shall pass.", author: "Unknown" },
+    //  { text: "Be yourself; everyone else is already taken.", author: "Oscar Wilde" },
+    //  { text: "Small steps every day.", author: "Anonymous" },
+    //  { text: "Reflect, grow, repeat.", author: "You" }
+    //];
+
+    const fetchedQuotes = await fetchQuotes();
+    const quotes = fetchedQuotes.map(quote => ({
+      author: quote.author,
+      text: quote.quote
+    }));
     const today = new Date().getDate();
     const quote = quotes[today % quotes.length];
   
