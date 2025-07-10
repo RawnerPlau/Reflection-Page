@@ -50,6 +50,28 @@ body {
 .nav-btn.prev {
   left: 1rem;
 }
+
+#message-box {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+#message-box.error {
+  background-color: #f44336;
+}
+
+#message-box.show {
+  opacity: 1;
+}
+
 .quotes-view {
   display: flex;
   justify-content: right;
@@ -81,7 +103,7 @@ body {
   height: auto;              /* Height grows with content */
 }
 
-.quotes-form {
+#quotes-form {
   display: flex;
   flex-direction: column;
   width: 50vh;
@@ -95,11 +117,11 @@ body {
   opacity: 0;
   animation: fadeIn 1s ease-in forwards;
 }
-.quotes-form label{
+#quotes-form label{
   display: flex;
   flex-direction: column;
 }
-.quotes-form h2 {
+#quotes-form h2 {
   margin: auto;
 }
 

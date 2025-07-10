@@ -1,5 +1,6 @@
-import { renderQuote } from './quotesView.js';
+import { displayQuoteToday } from './quotesView.js';
 import { renderQuotes } from './quotes/renderQuotes.js'
+import { insertQuote } from './quotes/insertQuote.js';
 const views = {
     home: 'views/home.html',
     quotes: './views/quotes.html',
@@ -13,9 +14,10 @@ function loadView(viewName) {
       document.getElementById('views-container').innerHTML = html;
 
       if (viewName === 'home') {
-          renderQuote(); // Load the quote when the quote view is active
+          displayQuoteToday(); // Load the quote when the quote view is active
         } else if (viewName === 'quotes') {
           renderQuotes();
+          insertQuote();
         }
     });
 }
@@ -28,7 +30,7 @@ document.addEventListener('click', e => {
     if (viewName != "logout"){
       loadView(viewName);
     } else {
-      localStorage.setItem('isLoggedIn', 'false')
+      localStorage.setItem('isLoggedIn', 'false');
       window.location.href = './views/login.html';
     }
       

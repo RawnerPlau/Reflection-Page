@@ -1,6 +1,6 @@
 import { fetchQuotes } from "./quotes/fetchQuotes.js";
 
-export async function renderQuote() {
+export async function displayQuoteToday() {
     //const quotes = [
     //  { text: "This too shall pass.", author: "Unknown" },
     //  { text: "Be yourself; everyone else is already taken.", author: "Oscar Wilde" },
