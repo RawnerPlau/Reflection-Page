@@ -9,6 +9,9 @@ export async function displayQuoteToday() {
     //];
 
     const fetchedQuotes = await fetchQuotes();
+    //fetchedQuotes.sort((a, b) => b.id - a.id); // Descending
+    // or
+    //fetchedQuotes.sort((a, b) => a.id - b.id); // Ascending
     const quotes = fetchedQuotes.map(quote => ({
       author: quote.author,
       text: quote.quote
