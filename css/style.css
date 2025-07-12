@@ -72,6 +72,11 @@ body {
   opacity: 1;
 }
 
+#message-box.hidden {
+  opacity: 0;
+  pointer-events: none; /* allows clicks to pass through */
+}
+
 .quotes-view {
   display: flex;
   justify-content: right;

@@ -1,7 +1,7 @@
 <?php
-include './backend/db.php';
+include '../db.php';
 
-$quoteId = $_POST['id'] ?? '';
+$quoteId = $_POST['id'] ?? null;
 
 if(empty($quoteId)){
     die("Quote not found.");

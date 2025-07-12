@@ -4,6 +4,6 @@ export function showMessage(message, type=success){
     box.className = `show ${type}`;
     console.log("hi");
     setTimeout(() => {
-    box.className = 'hidden';
-  }, 3000);
+      box.className = 'hidden';
+    }, 3000);
 }

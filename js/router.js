@@ -1,5 +1,5 @@
 import { displayQuoteToday } from './quotesView.js';
-import { renderQuotes } from './quotes/renderQuotes.js'
+import { setupQuotes } from './quotes/setupQuotes.js';
 import { insertQuote } from './quotes/insertQuote.js';
 const views = {
     home: 'views/home.html',
@@ -16,7 +16,7 @@ function loadView(viewName) {
       if (viewName === 'home') {
           displayQuoteToday(); // Load the quote when the quote view is active
         } else if (viewName === 'quotes') {
-          renderQuotes();
+          setupQuotes();
           insertQuote();
         }
     });
