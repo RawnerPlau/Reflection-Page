@@ -1,6 +1,4 @@
-import { fetchQuotes } from "./fetchQuotes.js";
-
-export async function renderQuotes() {
+export async function renderQuotes(quotes) {
     
     const container = document.getElementById('quotes-container');
     container.innerHTML = '';
@@ -11,7 +9,6 @@ export async function renderQuotes() {
     const thead = document.createElement('thead');
     thead.innerHTML = `
         <tr>
-            <th>ID</th>
             <th>Quote</th>
             <th>Author</th>
             <th>Action</th>
@@ -20,20 +17,21 @@ export async function renderQuotes() {
     quotesTable.appendChild(thead);
     const tbody = document.createElement('tbody');
     try{
-        const quotes = await fetchQuotes();
-        quotes.forEach(quote => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${quote.id}</td>
-                <td>${quote.quote}</td>
-                <td>${quote.author}</td>
+        tbody.innerHTML = quotes.map(quote => `
+            <tr data-id="${quote.id}">
                 <td>
-                    <button class="edit-btn" data-id="${quote.id}">Edit</button>
+                    <textarea>${quote.quote}</textarea>
+                </td>
+                <td>
+                    <input type="text" value="${quote.author}" />
+                </td>
+                <td>
+                    <button class="update-btn" data-id="${quote.id}">Update</button>
                     <button class="delete-btn" data-id="${quote.id}">Delete</button>
                 </td>
-            `;
-            tbody.appendChild(row);
-        });
+            </tr>
+        `).join('');
+
         quotesTable.appendChild(tbody);
         container.appendChild(quotesTable);
     } catch (error) {
