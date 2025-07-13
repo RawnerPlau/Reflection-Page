@@ -1,3 +1,5 @@
+import { showMessage } from "../showMessage.js";
+
 export async function deleteQuote(id){
     try {
         const response = await fetch('./backend/quotes/deleteQuote.php', {
@@ -8,11 +10,8 @@ export async function deleteQuote(id){
         body: `id=${encodeURIComponent(id)}`
         });
 
-        const data = await response.json();
-        if (!data.success) {
-        alert(`Failed to delete: ${data.message}`);
-        }
+        showMessage("Quote deleted successfully.", "success");
     } catch (err) {
-        console.error("Failed to delete: ", err)
+        showMessage("Failed to delete quote.", "error");
     }
 }

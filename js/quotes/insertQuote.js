@@ -1,5 +1,5 @@
 import { showMessage } from "../showMessage.js";
-import { renderQuotes } from "./renderQuotes.js";
+import { setupQuotes } from "./setupQuotes.js";
 
 export function insertQuote(){
     document.getElementById("quotes-form").addEventListener("submit", async (e) => {
@@ -21,7 +21,7 @@ export function insertQuote(){
         }
 
         form.reset();
-        
+        setupQuotes();
     });
 }
 

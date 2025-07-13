@@ -2,7 +2,7 @@
 header('Content-Type: application/json');
 include '../db.php';
 
-$result = $conn->query("SELECT * FROM quotes ORDER BY id DESC");
+$result = $conn->query("SELECT * FROM quotes ORDER BY id ASC");
 $quotes = [];
 
 if (!$result) {
