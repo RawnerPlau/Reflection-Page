@@ -88,6 +88,37 @@ body {
   animation: fadeIn 1s ease-in forwards;
 }
 
+.journal-view {
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+  margin: 20px auto;
+  padding: 0;
+  gap: 20px;
+  opacity: 0;
+  animation: fadeIn 1s ease-in forwards;
+}
+
+#content-container {
+  display: flex;
+  justify-content: center;
+}
+
+.folder-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  border-style: solid;
+  padding: 20px;
+  padding-bottom: 0px;
+  border-width: 1px;
+  border-radius: 1vh;
+  cursor: pointer;
+  opacity: 0;
+  animation: fadeIn 1s ease-in forwards;
+}
+
 #quotes-container {
   display: block;
   border-style: solid;
