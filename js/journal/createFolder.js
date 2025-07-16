@@ -5,9 +5,28 @@ export async function createFolder() {
 
     cancel_btn.addEventListener('click', () => {
         create_folder_container.classList.add('hidden');
-    })
+    });
 
     create_folder_btn.addEventListener('click', () => {
         create_folder_container.classList.remove('hidden');
-    })
+    });
+
+    document.getElementById('create-folder-form').addEventListener('submit', async (e) =>{
+        e.preventDefault();
+        const form = e.target;
+        const formData = new FormData(form);
+
+        try{
+            const response = await fetch('./backend/journal/createFolder.php', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.text();
+            console.log(result);
+        } catch (err) {
+            console.error(err);
+        };
+        
+    });
 }

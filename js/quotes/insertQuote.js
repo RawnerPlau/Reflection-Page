@@ -13,7 +13,7 @@ export function insertQuote(){
             {
                 method: 'POST',
                 body: formData
-            })
+            });
             showMessage("Quote added successfully!", 'success');
         } catch (err){
             console.error(err);
