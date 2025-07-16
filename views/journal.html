@@ -1,4 +1,18 @@
 <div class="journal-view">
     <h1>Journals</h1>
     <div id="content-container"></div>
+    <button type="button" id="create-folder-btn">Create New Folder</button>
+    <div id="create-folder-popup" class="popup-overlay hidden">
+        <div id="create-folder-container" class="create-folder-container">
+            <form id="create-folder-form">
+                <h2>Create New Folder</h2>
+                <br>
+                <label for="folder-name-txt">
+                    Name: <input type="text" id="folder-name-txt" placeholder="Name"/>
+                </label>
+                <button type="submit">Create</button>
+                <button type="button" id="cancel-folder">Cancel</button>
+            </form>
+        </div>
+    </div>
 </div>

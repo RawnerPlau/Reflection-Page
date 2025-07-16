@@ -2,6 +2,7 @@ import { displayQuoteToday } from './quotesView.js';
 import { setupQuotes } from './quotes/setupQuotes.js';
 import { insertQuote } from './quotes/insertQuote.js';
 import { loadFolders } from './journal/loadFolders.js';
+import { createFolder } from './journal/createFolder.js';
 const views = {
     home: 'views/home.html',
     quotes: './views/quotes.html',
@@ -23,6 +24,7 @@ function loadView(viewName) {
         } else if (viewName === 'journal') {
             setTimeout(() => {
               loadFolders();
+              createFolder();
             }, 1000);
         }
     });
