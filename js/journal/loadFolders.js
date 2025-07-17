@@ -1,7 +1,9 @@
 export async function loadFolders(){
-    const folders = await fetch('./backend/journal/readFolders.php');
+    const res = await fetch('./backend/journal/readFolders.php');
+    if (!res.ok) throw new Error('Failed to fetch');
+    const folders = await res.json();
     //const entries = await fetch('./backend/journal/readEntries.php');
-    console.log('yess');
+    console.log(folders);
     const content_container = document.getElementById('content-container');
     
     //const folders = [
