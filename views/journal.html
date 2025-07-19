@@ -1,7 +1,9 @@
 <div class="journal-view">
     <h1>Journals</h1>
-    <div id="content-container"></div>
-    <button type="button" id="create-folder-btn">Create New Folder</button>
+    <div id="folder-container">
+        <button type="button" id="create-folder-btn">Create New Folder</button>
+        <div id="folder-cards-container"></div>
+    </div>
     <div id="create-folder-popup" class="popup-overlay hidden">
         <div id="create-folder-container" class="create-folder-container">
             <form id="create-folder-form">
@@ -14,5 +16,6 @@
                 <button type="button" id="cancel-folder">Cancel</button>
             </form>
         </div>
+        <div id="entries-container" class="entries-container hidden"></div>
     </div>
 </div>
