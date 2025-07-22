@@ -1,11 +1,14 @@
 import { loadFolders } from "./loadFolders.js";
 import { getEntries } from "./getEntries.js";
+import { createEntry } from "./createEntry.js";
 
 export async function setupJournal(){
     const folder_cards_container = document.getElementById('folder-cards-container');
     const folder_container = document.getElementById('folder-container');
     const entries_container = document.getElementById('entries-container');
     const entry_cards_container = document.getElementById('entry-cards-container');
+    const create_entry_popup = document.getElementById('create-entry-popup');
+
     const folders = await loadFolders();
     folder_cards_container.innerHTML = folders.map(folder => 
         `
@@ -22,6 +25,8 @@ export async function setupJournal(){
             fadeIn(entries_container);
 
             const id = card.dataset.id;
+            entry_cards_container.dataset.folderId = id;
+
             const entries = await getEntries(id);
             entry_cards_container.innerHTML = entries.map(entry => 
                 `
@@ -39,6 +44,24 @@ export async function setupJournal(){
         fadeIn(folder_container);
         entry_cards_container.innerHTML = '';
     });
+
+    document.getElementById('add-btn').addEventListener('click', () => {
+        fadeIn(create_entry_popup);
+    });
+
+    document.getElementById('cancel-entry').addEventListener('click', () => {
+        fadeOut(create_entry_popup);
+    });
+
+    document.getElementById('create-entry-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const formData = new FormData(form);
+        formData.append('folder_id', entry_cards_container.dataset.folderId)
+        createEntry(formData);
+    })
+
+
 }
 
 function fadeOut(container, duration=500){
@@ -53,9 +76,10 @@ function fadeOut(container, duration=500){
 function fadeIn(container, duration=500){
     container.style.opacity=0;
     container.style.transition = `opacity ${duration}ms ease`;
-    container.style.opacity = 1;
+    
     setTimeout(() => {
         
         container.classList.remove('hidden');
+        container.style.opacity = 1;
     }, duration);
 }  

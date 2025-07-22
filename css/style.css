@@ -250,6 +250,32 @@ body, html{
   color: gray;
 }
 
+#create-entry-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  width: 100vw;
+  height: 100vh;
+  animation: fadeIn 0.3s ease;
+}
+
+.shadowed-container {
+  background-color: white;
+  padding: 20px;
+  border-style: solid;
+  border-radius: 1vh;
+  border-width: 1px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+#entry-textarea {
+  display: block;
+  width: 75vh;
+  min-height:10vh;
+  resize: vertical;
+}
+
 /* Hidden class to toggle */
 .hidden { 
   display: none;

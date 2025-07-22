@@ -4,9 +4,22 @@
         <button type="button" id="create-folder-btn">Create New Folder</button>
         <div id="folder-cards-container"></div>
     </div>
+
     <div id="entries-container" class="entries-container hidden">
+        <button type="button" id="add-btn">Add</button>
         <button type="button" id="back-btn">Back</button>
         <div id="entry-cards-container"></div>
+    </div>
+
+    <div id="create-entry-popup" class="popup-overlay hidden">
+        <div id="create-entry-container" >
+            <form id="create-entry-form" class="create-entry-form shadowed-container">
+                <h2>Add a reflection</h2>
+                <textarea id="entry-textarea" class="entry-textarea" name="entry-textarea" placeholder="What did I learn today?"></textarea>
+                <button type="submit">Confirm</button>
+                <button type="button" id="cancel-entry">Cancel</button>
+            </form>
+        </div>
     </div>
     <div id="create-folder-popup" class="popup-overlay hidden">
         <div id="create-folder-container" class="create-folder-container">
