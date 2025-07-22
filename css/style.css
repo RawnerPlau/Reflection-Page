@@ -99,7 +99,7 @@ body, html{
   animation: fadeIn 1s ease-in forwards;
 }
 
-#folder-container { 
+.folder-container { 
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -216,8 +216,42 @@ body, html{
   margin: 0;
 }
 
+.entries-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  animation: fadeIn 1s ease-in forwards;
+}
+
+.entry-cards-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.entry-card {
+  padding: 10px;
+  width: 25vh;
+  height: 25vh;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 1vh;
+}
+
+.entry-content {
+  height: 75%;
+}
+.entry-date {
+  text-align: left;
+  font-size: small;
+  font-style: italic;
+  color: gray;
+}
+
 /* Hidden class to toggle */
-.hidden {
+.hidden { 
   display: none;
 }
 
@@ -237,5 +271,14 @@ body, html{
   }
   to {
     opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
   }
 }
