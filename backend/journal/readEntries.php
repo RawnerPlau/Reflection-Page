@@ -8,7 +8,7 @@ if (empty($folder_id)){
     echo json_encode(['error' => "No folder Id"]);
 };
 
-$stmt = $conn->prepare('SELECT * FROM journal_entries WHERE id = ?');
+$stmt = $conn->prepare('SELECT * FROM journal_entries WHERE folder_id = ?');
 $stmt->bind_param('i', $folder_id);
 $stmt->execute();
 
