@@ -1,6 +1,7 @@
 import { loadFolders } from "./loadFolders.js";
 import { getEntries } from "./getEntries.js";
 import { createEntry } from "./createEntry.js";
+import { createFolder } from "./createFolder.js";
 
 export async function setupJournal(){
     const folder_cards_container = document.getElementById('folder-cards-container');
@@ -8,19 +9,48 @@ export async function setupJournal(){
     const entries_container = document.getElementById('entries-container');
     const entry_cards_container = document.getElementById('entry-cards-container');
     const create_entry_popup = document.getElementById('create-entry-popup');
+    const create_folder_container = document.getElementById('create-folder-popup');
+    const cancel_btn = document.getElementById('cancel-folder');
+    const create_folder_btn = document.getElementById('create-folder-btn');
 
     folder_cards_container.innerHTML = await foldersHtmlString();
+    fadeIn(folder_container);
 
-    document.querySelectorAll('.folder-card').forEach(card => {
-        card.addEventListener('click', async() => {
-            fadeOut(folder_container);
-            fadeIn(entries_container);
+    cancel_btn.addEventListener('click', () => {
+        fadeOut(create_folder_container);
+    });
 
-            const id = card.dataset.id;
-            entry_cards_container.dataset.folderId = id;
+    create_folder_btn.addEventListener('click', () => {
+        fadeIn(create_folder_container);
+    });
 
-            entry_cards_container.innerHTML = await entriesHTMLString(id);
-        })
+    document.getElementById('create-folder-form').addEventListener('submit', async (e) =>{
+        e.preventDefault();
+        const form = e.target;
+        const formData = new FormData(form);
+        const data = {};
+            formData.forEach((value, key) => {
+            data[key] = value;
+            });
+            console.log(data);
+        await createFolder(formData);
+        form.reset();
+        folder_cards_container.innerHTML = await foldersHtmlString();
+        fadeOut(create_folder_container);
+        
+    });
+
+    folder_cards_container.addEventListener('click', async (e) => {
+    const card = e.target.closest('.folder-card');
+    if (card) {
+        const id = card.dataset.id;
+        fadeOut(folder_container);
+        fadeIn(entries_container);
+        entry_cards_container.dataset.folderId = id;
+
+        entry_cards_container.innerHTML = await entriesHTMLString(id);    
+        console.log('Delegated click:', id);
+    }
     });
 
     document.getElementById('back-btn').addEventListener('click', () => {
@@ -49,6 +79,7 @@ export async function setupJournal(){
         form.reset();
     });
 
+    
 }
 
 async function entriesHTMLString(id){

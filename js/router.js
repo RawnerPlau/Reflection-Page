@@ -24,7 +24,6 @@ function loadView(viewName) {
           insertQuote();
         } else if (viewName === 'journal') {
             setTimeout(() => {
-              createFolder();
               setupJournal();
             }, 1000);
         }

@@ -112,6 +112,9 @@ body, html{
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
+  width: 95vw;
+  gap: 20px;
 }
 
 .folder-card {
@@ -120,14 +123,11 @@ body, html{
   justify-content: center;
   text-align: center;
   border-style: solid;
-  margin: 0 5px;
   padding: 20px;
   padding-bottom: 0px;
   border-width: 1px;
   border-radius: 1vh;
   cursor: pointer;
-  opacity: 0;
-  animation: fadeIn 1s ease-in forwards;
   min-width: 10vh;
   max-width: 10vh;
 }
