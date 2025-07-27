@@ -42,6 +42,14 @@ export async function setupJournal(){
 
     folder_cards_container.addEventListener('click', async (e) => {
     const card = e.target.closest('.folder-card');
+    const del_btn = e.target.closest('.delete-folder-btn');
+    if (del_btn) {
+        e.stopPropagation();
+        const id = del_btn.dataset.id;
+        console.log('Del click:', id);
+        return
+    };
+
     if (card) {
         const id = card.dataset.id;
         fadeOut(folder_container);
@@ -50,7 +58,9 @@ export async function setupJournal(){
 
         entry_cards_container.innerHTML = await entriesHTMLString(id);    
         console.log('Delegated click:', id);
-    }
+    };
+    
+    
     });
 
     document.getElementById('back-btn').addEventListener('click', () => {
@@ -101,6 +111,7 @@ async function foldersHtmlString(){
         <div class="folder-card" data-id="${folder.id}">
             <img src="./Qwilfish-64x64.png" alt="folder">
             <p>${folder.name}</p>
+            <button type="button" class="delete-folder-btn" data-id="${folder.id}">Del</button>
         </div>
         `
     ).join('');

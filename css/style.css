@@ -118,6 +118,7 @@ body, html{
 }
 
 .folder-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -300,6 +301,16 @@ body, html{
   z-index: 999;
 }
 
+.folder-card .delete-folder-btn {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  display: none;
+}
+
+.folder-card:hover .delete-folder-btn {
+  display: block;
+}
 @keyframes fadeIn {
   from {
     opacity: 0;
