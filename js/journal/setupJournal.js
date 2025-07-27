@@ -31,7 +31,6 @@ export async function setupJournal(){
 
     document.getElementById('add-btn').addEventListener('click', async () => {
         fadeIn(create_entry_popup);
-        
     });
 
     document.getElementById('cancel-entry').addEventListener('click', () => {
@@ -47,8 +46,8 @@ export async function setupJournal(){
         createEntry(formData);
         entry_cards_container.innerHTML = await entriesHTMLString(entry_cards_container.dataset.folderId);
         fadeOut(create_entry_popup);
+        form.reset();
     });
-
 
 }
 
@@ -63,6 +62,7 @@ async function entriesHTMLString(id){
                 `
             ).join(''));
 }
+
 async function foldersHtmlString(){
     const folders = await loadFolders();
     const html_string = folders.map(folder => 

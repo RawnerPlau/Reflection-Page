@@ -231,8 +231,9 @@ body, html{
   align-items: center;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 100vw;
+  width: 95vw;
   gap: 20px;
+  border-style: solid;
 }
 
 .entry-card {
