@@ -2,6 +2,7 @@ import { loadFolders } from "./loadFolders.js";
 import { getEntries } from "./getEntries.js";
 import { createEntry } from "./createEntry.js";
 import { createFolder } from "./createFolder.js";
+import { deleteFolder } from "./deleteFolder.js";
 
 export async function setupJournal(){
     const folder_cards_container = document.getElementById('folder-cards-container');
@@ -12,6 +13,8 @@ export async function setupJournal(){
     const create_folder_container = document.getElementById('create-folder-popup');
     const cancel_btn = document.getElementById('cancel-folder');
     const create_folder_btn = document.getElementById('create-folder-btn');
+    const folder_menu = document.querySelector('.folder-menu');
+    const folder_menu_btn = document.querySelector('.folder-menu-btn');
 
     folder_cards_container.innerHTML = await foldersHtmlString();
     fadeIn(folder_container);
@@ -35,42 +38,39 @@ export async function setupJournal(){
             console.log(data);
         await createFolder(formData);
         form.reset();
-        folder_cards_container.innerHTML = await foldersHtmlString();
+        tyfolder_cards_container.innerHTML = await foldersHtmlString();
+        document.getElementById('folder-name').innerHTML = 
         fadeOut(create_folder_container);
         
     });
 
+    
     folder_cards_container.addEventListener('click', async (e) => {
-    const card = e.target.closest('.folder-card');
-    const del_btn = e.target.closest('.delete-folder-btn');
-    if (del_btn) {
-        e.stopPropagation();
-        const id = del_btn.dataset.id;
-        console.log('Del click:', id);
-        return
-    };
-
-    if (card) {
-        const id = card.dataset.id;
-        fadeOut(folder_container);
-        fadeIn(entries_container);
-        entry_cards_container.dataset.folderId = id;
-
-        entry_cards_container.innerHTML = await entriesHTMLString(id);    
-        console.log('Delegated click:', id);
-    };
-    
-    
+        const card = e.target.closest('.folder-card');
+        if (card) {
+            const id = card.dataset.id;
+            fadeOut(folder_container);
+            entry_cards_container.dataset.folderId = id;
+            document.getElementById("folder-name").innerText = card.dataset.name;
+            entry_cards_container.innerHTML = await entriesHTMLString(id);    
+            console.log('Delegated click:', id);
+            
+            fadeIn(entries_container);
+        };
     });
 
     document.getElementById('back-btn').addEventListener('click', () => {
         fadeOut(entries_container);
-        fadeIn(folder_container);
         entry_cards_container.innerHTML = '';
+        fadeIn(folder_container);
     });
 
     document.getElementById('add-btn').addEventListener('click', async () => {
         fadeIn(create_entry_popup);
+    });
+
+    document.getElementById('delete-folder-btn').addEventListener('click', async () => {
+        deleteFolder(entry_cards_container.dataset.folderId)
     });
 
     document.getElementById('cancel-entry').addEventListener('click', () => {
@@ -89,51 +89,58 @@ export async function setupJournal(){
         form.reset();
     });
 
-    
 }
 
 async function entriesHTMLString(id){
     const entries = await getEntries(id);
-    return (entries.map(entry => 
-                `
-                <div class="entry-card" data-id="${entry.id}">
-                    <p class="entry-content">"${entry.content}"</p>
-                    <p class="entry-date">${entry.created_at}</p>
-                </div>
-                `
-            ).join(''));
+    if (entries === null) {
+        return ('<p>Empty Folder</p>');
+    } else {
+        return (entries.map(entry => 
+            `
+            <div class="entry-card" data-id="${entry.id}">
+                <p class="entry-content">"${entry.content}"</p>
+                <p class="entry-date">${entry.created_at}</p>
+            </div>
+            `
+        ).join(''));
+    }
+    
 }
 
 async function foldersHtmlString(){
     const folders = await loadFolders();
     const html_string = folders.map(folder => 
         `
-        <div class="folder-card" data-id="${folder.id}">
+        <div class="folder-card" data-id="${folder.id}" data-name="${folder.name}">
             <img src="./Qwilfish-64x64.png" alt="folder">
-            <p>${folder.name}</p>
-            <button type="button" class="delete-folder-btn" data-id="${folder.id}">Del</button>
+            <div class="folder-name">
+                <p>${folder.name}</p>
+            </div>
         </div>
         `
     ).join('');
     return html_string;
 }
 
-function fadeOut(container, duration=500){
+function fadeOut(container, duration = 500) {
     container.style.transition = `opacity ${duration}ms ease`;
     container.style.opacity = 0;
 
+    // Hide after animation
     setTimeout(() => {
         container.classList.add('hidden');
     }, duration);
-}  
+}
 
-function fadeIn(container, duration=500){
-    container.style.opacity=0;
+function fadeIn(container, duration = 500) {
+    container.classList.remove('hidden'); // unhide immediately
     container.style.transition = `opacity ${duration}ms ease`;
-    
-    setTimeout(() => {
-        
-        container.classList.remove('hidden');
-        container.style.opacity = 1;
-    }, duration);
-}  
+    container.style.opacity = 0; // start invisible
+
+    // trigger reflow so opacity transition works
+    void container.offsetWidth;
+
+    container.style.opacity = 1; // animate to visible
+}
+
