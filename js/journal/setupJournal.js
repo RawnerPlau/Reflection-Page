@@ -112,7 +112,7 @@ async function goToPage(fromPage, toPage) {
 async function entriesHTMLString(id){
     const entries = await getEntries(id);
     if (entries === null) {
-        return ('<p>Empty Folder</p>');
+        return ('<p>No entries found.</p>');
     } else {
         return (entries.map(entry => 
             `
@@ -127,18 +127,25 @@ async function entriesHTMLString(id){
 }
 
 async function foldersHtmlString(){
+    
     const folders = await loadFolders();
-    const html_string = folders.map(folder => 
-        `
-        <div class="folder-card" data-id="${folder.id}" data-name="${folder.name}">
-            <img src="./Qwilfish-64x64.png" alt="folder">
-            <div class="folder-name">
-                <p>${folder.name}</p>
+    if (folders != ''){
+        const html_string = folders.map(folder => 
+            `
+            <div class="folder-card" data-id="${folder.id}" data-name="${folder.name}">
+                <img src="./Qwilfish-64x64.png" alt="folder">
+                <div class="folder-name">
+                    <p>${folder.name}</p>
+                </div>
             </div>
-        </div>
-        `
-    ).join('');
-    return html_string;
+            `
+        ).join('');
+        return html_string;
+    } else {
+        console.log(`${folders}`);
+        return (`<p>No folders found.</p>`);
+    }
+    
 }
 
 async function fadeOut(container, duration = 500) {
