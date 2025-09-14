@@ -9,12 +9,13 @@ export async function setupJournal(){
     const folder_container = document.getElementById('folder-container');
     const entries_container = document.getElementById('entries-container');
     const entry_cards_container = document.getElementById('entry-cards-container');
-    const create_entry_popup = document.getElementById('create-entry-popup');
-    const create_folder_container = document.getElementById('create-folder-popup');
+    
     const cancel_btn = document.getElementById('cancel-folder');
     const create_folder_btn = document.getElementById('create-folder-btn');
-    const folder_menu = document.querySelector('.folder-menu');
-    const folder_menu_btn = document.querySelector('.folder-menu-btn');
+
+    const create_entry_popup = document.getElementById('create-entry-popup');
+    const delete_folder_popup = document.getElementById('delete-folder-popup');
+    const create_folder_container = document.getElementById('create-folder-popup');
 
     folder_cards_container.innerHTML = await foldersHtmlString();
     fadeIn(folder_container);
@@ -55,23 +56,34 @@ export async function setupJournal(){
             entry_cards_container.innerHTML = await entriesHTMLString(id);    
             console.log('Delegated click:', id);
             
-            await returnPage(folder_container, entries_container);
+            await goToPage(folder_container, entries_container);
         };
     });
 
-    document.getElementById('back-btn').addEventListener('click', async (e) => {
-        await returnPage(entries_container, folder_container);
+    document.getElementById('back-btn').addEventListener('click', async () => {
+        await goToPage(entries_container, folder_container);
     });
 
     document.getElementById('add-btn').addEventListener('click', async () => {
         fadeIn(create_entry_popup);
     });
 
-    document.getElementById('delete-folder-btn').addEventListener('click', async () => {
-        await deleteFolder(entry_cards_container.dataset.folderId)
-        folder_cards_container.innerHTML = '';
-        folder_cards_container.innerHTML = await foldersHtmlString();
-        await returnPage(entries_container, folder_container);
+    document.getElementById('delete-folder-card').addEventListener('click', async (e) => {
+        if (e.target.matches(".yes-btn")){
+            await deleteFolder(entry_cards_container.dataset.folderId)
+            folder_cards_container.innerHTML = '';
+            folder_cards_container.innerHTML = await foldersHtmlString();
+            await goToPage(entries_container, folder_container);
+            await fadeOut(delete_folder_popup);
+        };
+        if (e.target.matches(".no-btn")){
+            await fadeOut(delete_folder_popup);
+        };
+    });
+
+    document.getElementById('delete-folder-btn').addEventListener('click', () => {
+        console.log("delete btn clicked");
+        fadeIn(delete_folder_popup);
     });
 
     document.getElementById('cancel-entry').addEventListener('click', async () => {
@@ -92,7 +104,7 @@ export async function setupJournal(){
 
 }
 
-async function returnPage(fromPage, toPage) {
+async function goToPage(fromPage, toPage) {
     await fadeOut(fromPage);
     fadeIn(toPage);
 }
