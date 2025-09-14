@@ -19,8 +19,8 @@ export async function setupJournal(){
     folder_cards_container.innerHTML = await foldersHtmlString();
     fadeIn(folder_container);
 
-    cancel_btn.addEventListener('click', () => {
-        fadeOut(create_folder_container);
+    cancel_btn.addEventListener('click', async () => {
+        await fadeOut(create_folder_container);
     });
 
     create_folder_btn.addEventListener('click', () => {
@@ -38,7 +38,7 @@ export async function setupJournal(){
             console.log(data);
         await createFolder(formData);
         form.reset();
-        tyfolder_cards_container.innerHTML = await foldersHtmlString();
+        folder_cards_container.innerHTML = await foldersHtmlString();
         document.getElementById('folder-name').innerHTML = 
         fadeOut(create_folder_container);
         
@@ -49,20 +49,18 @@ export async function setupJournal(){
         const card = e.target.closest('.folder-card');
         if (card) {
             const id = card.dataset.id;
-            fadeOut(folder_container);
             entry_cards_container.dataset.folderId = id;
             document.getElementById("folder-name").innerText = card.dataset.name;
+            entry_cards_container.innerHTML = '';
             entry_cards_container.innerHTML = await entriesHTMLString(id);    
             console.log('Delegated click:', id);
             
-            fadeIn(entries_container);
+            await returnPage(folder_container, entries_container);
         };
     });
 
-    document.getElementById('back-btn').addEventListener('click', () => {
-        fadeOut(entries_container);
-        entry_cards_container.innerHTML = '';
-        fadeIn(folder_container);
+    document.getElementById('back-btn').addEventListener('click', async (e) => {
+        await returnPage(entries_container, folder_container);
     });
 
     document.getElementById('add-btn').addEventListener('click', async () => {
@@ -70,11 +68,14 @@ export async function setupJournal(){
     });
 
     document.getElementById('delete-folder-btn').addEventListener('click', async () => {
-        deleteFolder(entry_cards_container.dataset.folderId)
+        await deleteFolder(entry_cards_container.dataset.folderId)
+        folder_cards_container.innerHTML = '';
+        folder_cards_container.innerHTML = await foldersHtmlString();
+        await returnPage(entries_container, folder_container);
     });
 
-    document.getElementById('cancel-entry').addEventListener('click', () => {
-        fadeOut(create_entry_popup);
+    document.getElementById('cancel-entry').addEventListener('click', async () => {
+        await fadeOut(create_entry_popup);
         folder_cards_container.innerHTML = foldersHtmlString();
     });
 
@@ -89,6 +90,11 @@ export async function setupJournal(){
         form.reset();
     });
 
+}
+
+async function returnPage(fromPage, toPage) {
+    await fadeOut(fromPage);
+    fadeIn(toPage);
 }
 
 async function entriesHTMLString(id){
@@ -123,14 +129,18 @@ async function foldersHtmlString(){
     return html_string;
 }
 
-function fadeOut(container, duration = 500) {
-    container.style.transition = `opacity ${duration}ms ease`;
+async function fadeOut(container, duration = 500) {
+    return new Promise((resolve) => {
+        container.style.transition = `opacity ${duration}ms ease`;
     container.style.opacity = 0;
 
     // Hide after animation
     setTimeout(() => {
         container.classList.add('hidden');
+        resolve();
     }, duration);
+    })
+    
 }
 
 function fadeIn(container, duration = 500) {
