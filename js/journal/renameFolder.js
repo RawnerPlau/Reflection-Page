@@ -7,9 +7,5 @@ export async function renameFolder(form) {
     const data = await response.json();
 
     console.log(data.message);
-    if (data.success) {
-        alert("✅ " + data.message);
-    } else {
-        alert("❌ " + data.message);
-    };
+    return data;
 }

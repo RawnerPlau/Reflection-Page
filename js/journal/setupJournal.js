@@ -98,7 +98,7 @@ export async function setupJournal(){
         const form = e.target;
         const formData = new FormData(form);
         formData.append('folder_id', entry_cards_container.dataset.folderId);
-        createEntry(formData);
+        await createEntry(formData);
         entry_cards_container.innerHTML = await entriesHTMLString(entry_cards_container.dataset.folderId);
         await fadeOut(create_entry_popup);
         form.reset();
@@ -114,12 +114,25 @@ export async function setupJournal(){
         const form = e.target;
         const formData = new FormData(form);
         formData.append('folder_id', entry_cards_container.dataset.folderId);
-        await renameFolder(formData);
-        await fadeOut(rename_folder_popup);
-        form.reset();
-        folder_cards_container.innerHTML = await foldersHtmlString();
-        await goToPage(entries_container, folder_container);
+        const res = await renameFolder(formData);
+        if (res.success) {
+            alert("✅ " + res.message);
+            await fadeOut(rename_folder_popup);
+            form.reset();
+            folder_cards_container.innerHTML = await foldersHtmlString();
+            await goToPage(entries_container, folder_container);
+        } else {
+            alert("❌ " + res.message);
+            await fadeOut(rename_folder_popup);
+            form.reset();
+        };
+        
     });
+
+    document.getElementById('cancel-rename').addEventListener('click', async () => {
+        await fadeOut(rename_folder_popup);
+        document.getElementById('rename-folder-form').reset();
+    })
 }
 
 async function goToPage(fromPage, toPage) {
