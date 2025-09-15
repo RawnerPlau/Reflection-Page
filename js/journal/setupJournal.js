@@ -3,6 +3,7 @@ import { getEntries } from "./getEntries.js";
 import { createEntry } from "./createEntry.js";
 import { createFolder } from "./createFolder.js";
 import { deleteFolder } from "./deleteFolder.js";
+import { renameFolder} from "./renameFolder.js";
 
 export async function setupJournal(){
     const folder_cards_container = document.getElementById('folder-cards-container');
@@ -15,6 +16,7 @@ export async function setupJournal(){
 
     const create_entry_popup = document.getElementById('create-entry-popup');
     const delete_folder_popup = document.getElementById('delete-folder-popup');
+    const rename_folder_popup = document.getElementById('rename-folder-popup');
     const create_folder_container = document.getElementById('create-folder-popup');
 
     folder_cards_container.innerHTML = await foldersHtmlString();
@@ -88,20 +90,36 @@ export async function setupJournal(){
 
     document.getElementById('cancel-entry').addEventListener('click', async () => {
         await fadeOut(create_entry_popup);
-        folder_cards_container.innerHTML = foldersHtmlString();
+        folder_cards_container.innerHTML = await foldersHtmlString();
     });
 
     document.getElementById('create-entry-form').addEventListener('submit', async (e) => {
         e.preventDefault();
         const form = e.target;
         const formData = new FormData(form);
-        formData.append('folder_id', entry_cards_container.dataset.folderId)
+        formData.append('folder_id', entry_cards_container.dataset.folderId);
         createEntry(formData);
         entry_cards_container.innerHTML = await entriesHTMLString(entry_cards_container.dataset.folderId);
-        fadeOut(create_entry_popup);
+        await fadeOut(create_entry_popup);
         form.reset();
     });
 
+    document.getElementById('rename-folder-btn').addEventListener('click', () => {
+        console.log("rename-clicked");
+        fadeIn(rename_folder_popup);
+    });
+
+    document.getElementById('rename-folder-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const formData = new FormData(form);
+        formData.append('folder_id', entry_cards_container.dataset.folderId);
+        await renameFolder(formData);
+        await fadeOut(rename_folder_popup);
+        form.reset();
+        folder_cards_container.innerHTML = await foldersHtmlString();
+        await goToPage(entries_container, folder_container);
+    });
 }
 
 async function goToPage(fromPage, toPage) {

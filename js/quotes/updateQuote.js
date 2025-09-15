@@ -6,6 +6,7 @@ export async function updateQuote(quote){
         method: 'POST',
         body: quote
     })
-    const result = await response.text();
-    alert(result);
+    const result = await response.json();
+
+    console.log(result.message);
     };
