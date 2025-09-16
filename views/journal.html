@@ -23,7 +23,7 @@
         <div id="create-entry-container" >
             <form id="create-entry-form" class="create-entry-form shadowed-container">
                 <h2>Add a reflection</h2>
-                <textarea id="entry-textarea" class="entry-textarea" name="entry-textarea" placeholder="What did I learn today?"></textarea>
+                <textarea id="entry-textarea2" class="entry-textarea" name="entry-textarea" placeholder="What did I learn today?"></textarea>
                 <button type="submit">Confirm</button>
                 <button type="button" id="cancel-entry">Cancel</button>
             </form>
@@ -61,6 +61,17 @@
                 </label>
                 <button type="submit">Create</button>
                 <button type="button" id="cancel-folder">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="entry-popup" class="popup-overlay hidden" dataset-id="" dataset-type="">
+        <div class="center">
+            <form id="entry-form" class="popup-card">
+                <h2 id="entry-message">Edit</h2>
+                <input type="textarea" id="entry-textarea" name="entry_text" placeholder="Text here..."/>
+                <button type="submit" id="save-entry">Save</button>
+                <button type="button" id="cancel-entry1">Cancel</button>
             </form>
         </div>
     </div>
