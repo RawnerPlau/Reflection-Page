@@ -5,6 +5,7 @@ export async function updateEntry(form){
             body: form
         });
         const data = result.json();
+        console.log(data);
         return data;
     } catch(err){
         console.log(err);

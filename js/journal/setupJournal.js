@@ -38,7 +38,7 @@ export async function setupJournal(){
         const form = e.target;
         const formData = new FormData(form);
         const data = {};
-            formData.forEach((value, key) => {
+        formData.forEach((value, key) => {
             data[key] = value;
             });
             console.log(data);
@@ -86,31 +86,33 @@ export async function setupJournal(){
         e.preventDefault();
         const form = e.target;
         const formData = new FormData(form);
-        if (entry_popup.dataset.type === "update"){
+        const type = entry_popup.dataset.type;
+        if (type === "update"){
             formData.append("entry_id", entry_popup.dataset.id);
             const result = await updateEntry(formData);
             if (result.success){
                 alert("✅ " + result.message);
-                await fadeOut(rename_folder_popup); 
-                folder_cards_container.innerHTML = '';
                 entry_cards_container.innerHTML = await entriesHTMLString(entry_cards_container.dataset.folderId);
-                form.reset();
+            }
+        } else if (type === "create"){
+            formData.append('folder_id', entry_cards_container.dataset.folderId);
+            const result = await createEntry(formData);
+            if (result.success){
+                alert("✅ " + result.message);
+                entry_cards_container.innerHTML = await entriesHTMLString(entry_cards_container.dataset.folderId);
             }
         }
-        
-        
         await fadeOut(entry_popup);
-        document.getElementById('entry-form').reset();
+        form.reset();
     })
-
-
 
     document.getElementById('back-btn').addEventListener('click', async () => {
         await goToPage(entries_container, folder_container);
     });
 
     document.getElementById('add-btn').addEventListener('click', async () => {
-        fadeIn(create_entry_popup);
+        entry_popup.dataset.type = "create";
+        fadeIn(entry_popup);
     });
 
     document.getElementById('delete-folder-card').addEventListener('click', async (e) => {
@@ -130,23 +132,7 @@ export async function setupJournal(){
         console.log("delete btn clicked");
         fadeIn(delete_folder_popup);
     });
-
-    document.getElementById('cancel-entry').addEventListener('click', async () => {
-        await fadeOut(create_entry_popup);
-        folder_cards_container.innerHTML = await foldersHtmlString();
-    });
-
-    document.getElementById('create-entry-form').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const form = e.target;
-        const formData = new FormData(form);
-        formData.append('folder_id', entry_cards_container.dataset.folderId);
-        await createEntry(formData);
-        entry_cards_container.innerHTML = await entriesHTMLString(entry_cards_container.dataset.folderId);
-        await fadeOut(create_entry_popup);
-        form.reset();
-    });
-
+    
     document.getElementById('rename-folder-btn').addEventListener('click', () => {
         console.log("rename-clicked");
         fadeIn(rename_folder_popup);
