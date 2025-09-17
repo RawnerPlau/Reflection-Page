@@ -9,11 +9,15 @@ export async function deleteFolder(id) {
             },
             body: `id=${encodeURIComponent(id)}`
         });
-        console.log(response.text);
+
+        const data = response.json();
+        console.log(data);
     
         showMessage("Folder deleted successfully.", "success");
+        return data;
     } catch (err) {
-        showMessage("Failed to delete folder.", "error");
+        showMessage(`Error: ${err}`, "error");
+        return null;
     }
 }
     

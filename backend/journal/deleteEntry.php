@@ -1,30 +1,30 @@
 <?php
 include '../db.php';
 
-$folderId = $_POST['id'] ?? null;
+$entryId = $_POST['id'] ?? null;
 
-if(empty($folderId)){
+if(empty($entryId)) {
     echo json_encode([
         "success" => false,
-        "message" => "Folder ID not found."
+        "message" => "Invalid Entry ID."
     ]);
     exit;
 };
 
-$stmt = $conn->prepare('DELETE FROM folders WHERE id = ?');
-$stmt->bind_param('i', $folderId);
+$stmt = $conn->prepare('DELETE FROM journal_entries WHERE id = ?');
+$stmt->bind_param('i', $entryId);
 
 if ($stmt->execute()) {
     echo json_encode([
         "success" => true,
-        "message" => "Folder deleted successfully."
+        "message" => "Entry deleted successfully."
     ]);
 } else {
     echo json_encode([
         "success" => false,
         "message" => $stmt->error
     ]);
-};
+}
 
 $stmt->close();
 $conn->close();
